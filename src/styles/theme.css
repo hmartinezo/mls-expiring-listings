@@ -1,0 +1,38 @@
+:root {
+  --font-display: "Palatino Linotype", "Book Antiqua", Palatino, serif;
+  --font-body: "Trebuchet MS", "Gill Sans", "Candara", sans-serif;
+  --ink-900: #1c1a17;
+  --ink-700: #3d3831;
+  --ink-600: #5a5349;
+  --ink-500: #766d60;
+  --surface-0: #ffffff;
+  --surface-100: #f6efe4;
+  --surface-200: #efe3d6;
+  --surface-300: #e2d4c3;
+  --accent-500: #c45f44;
+  --accent-400: #d97b62;
+  --accent-600: #a84830;
+  --alert-600: #b2383a;
+  --success-600: #2f7a67;
+  --shadow-soft: 0 20px 45px rgba(60, 45, 30, 0.08);
+}
+
+body {
+  font-family: var(--font-body);
+  line-height: 1.6;
+  font-weight: 400;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-family: var(--font-display);
+  margin: 0;
+}
+
+p {
+  margin: 0;
+}
