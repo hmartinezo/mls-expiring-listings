@@ -8,6 +8,7 @@ import {
   fetchListings,
 } from './api/listings'
 import Pagination from './components/Pagination'
+import ReachOutLetter from './components/ReachOutLetter'
 import ResultsList from './components/ResultsList'
 import SearchPanel, { type FormState } from './components/SearchPanel'
 
@@ -43,6 +44,7 @@ function App() {
   const [results, setResults] = useState<Listing[]>([])
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
+  const [selectedListingForLetter, setSelectedListingForLetter] = useState<Listing | null>(null)
 
   const statusFilter: ListingStatusFilter = useMemo(() => form.status, [form])
 
@@ -124,6 +126,18 @@ function App() {
     setForm((prev) => ({ ...prev, [field]: value }))
   }
 
+  const handleLetterClick = (listing: Listing) => {
+    setSelectedListingForLetter(listing)
+  }
+
+  const handleBackFromLetter = () => {
+    setSelectedListingForLetter(null)
+  }
+
+  if (selectedListingForLetter) {
+    return <ReachOutLetter listing={selectedListingForLetter} onBack={handleBackFromLetter} />
+  }
+
   return (
     <div className="app">
       <header className="hero">
@@ -133,6 +147,9 @@ function App() {
           <p className="hero__subtitle">
             This is a mock data experience while we wire the RESO MLS feed. Use a 5-digit zip to view
             listings, then refine by price, beds, days on market, and status.
+          </p>
+          <p style={{ marginTop: '12px', fontSize: '13px', color: '#666' }}>
+            <strong>Sample zip codes:</strong> 22201 (Arlington) • 22301 (Alexandria) • 22046 (Falls Church) • 20190 (Reston) • 22902 (Charlottesville)
           </p>
         </div>
         <div className="hero__card">
@@ -178,6 +195,7 @@ function App() {
             items={results}
             isLoading={isLoading}
             hasSearch={Boolean(activeZip)}
+            onLetterClick={handleLetterClick}
           />
 
           {data && data.totalPages > 1 ? (

@@ -35,9 +35,10 @@ type ResultsListProps = {
   items: Listing[]
   isLoading: boolean
   hasSearch: boolean
+  onLetterClick?: (listing: Listing) => void
 }
 
-const ResultsList = ({ items, isLoading, hasSearch }: ResultsListProps) => {
+const ResultsList = ({ items, isLoading, hasSearch, onLetterClick }: ResultsListProps) => {
   if (isLoading) {
     return (
       <div className="results__grid">
@@ -82,6 +83,51 @@ const ResultsList = ({ items, isLoading, hasSearch }: ResultsListProps) => {
             <div className="card__meta">Days on market: {listing.daysOnMarket}</div>
             <div className="card__meta">Listed: {formatDate(listing.listedOn)}</div>
             <div className="card__meta">{expiryMeta.label}</div>
+
+            <hr style={{ margin: '12px 0', borderColor: '#e0e0e0' }} />
+
+            <div className="card__meta" style={{ fontWeight: '600', color: '#333' }}>Owner: {listing.ownerName}</div>
+            <div className="card__meta" style={{ fontSize: '0.9em', color: '#666' }}>Type: {listing.ownershipType}</div>
+            
+            <a href={listing.publicRecordsUrl} target="_blank" rel="noopener noreferrer" style={{
+              display: 'inline-block',
+              marginTop: '8px',
+              padding: '6px 12px',
+              backgroundColor: '#4CAF50',
+              color: 'white',
+              textDecoration: 'none',
+              borderRadius: '4px',
+              fontSize: '0.85em',
+              fontWeight: '500',
+              transition: 'background-color 0.2s',
+              marginRight: '8px'
+            }} onMouseOver={(e) => e.currentTarget.style.backgroundColor = '#45a049'}
+               onMouseOut={(e) => e.currentTarget.style.backgroundColor = '#4CAF50'}
+            >
+              View Public Records →
+            </a>
+            
+            {onLetterClick && (
+              <button
+                onClick={() => onLetterClick(listing)}
+                style={{
+                  display: 'inline-block',
+                  marginTop: '8px',
+                  padding: '6px 12px',
+                  backgroundColor: '#2196F3',
+                  color: 'white',
+                  border: 'none',
+                  borderRadius: '4px',
+                  fontSize: '0.85em',
+                  fontWeight: '500',
+                  cursor: 'pointer',
+                  transition: 'background-color 0.2s'
+                }} onMouseOver={(e) => e.currentTarget.style.backgroundColor = '#0b7dda'}
+                   onMouseOut={(e) => e.currentTarget.style.backgroundColor = '#2196F3'}
+              >
+                ✉️ Create Letter
+              </button>
+            )}
           </article>
         )
       })}
